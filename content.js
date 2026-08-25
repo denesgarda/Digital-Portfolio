@@ -33,8 +33,9 @@ window.SITE = {
 
   // Profile links, shown in the contact block.
   socials: [
-    { label: "TikTok",    url: "https://tiktok.com/@denes0114" },
-    { label: "Instagram", url: "https://instagram.com/denesgarda" }
+    { label: "TikTok", url: "https://tiktok.com/@denes0114" }
+    // Instagram removed — @denesgarda is a personal account and this page is
+    // public. Add a separate creator account here when there is one.
   ],
 
 
@@ -66,8 +67,8 @@ window.SITE = {
       title: "Platforms & Reach",
       note: "Rolling 90-day averages.",
       platforms: [
-        { platform: "TikTok",    handle: "@denes0114",  url: "https://tiktok.com/@denes0114",    followers: "00.0K", avgViews: "00.0K", engagement: "0.0%" },
-        { platform: "Instagram", handle: "@denesgarda", url: "https://instagram.com/denesgarda", followers: "00.0K", avgViews: "00.0K", engagement: "0.0%" }
+        { platform: "TikTok", handle: "@denes0114", url: "https://tiktok.com/@denes0114", followers: "00.0K", avgViews: "00.0K", engagement: "0.0%" }
+        // Add the creator Instagram here once it exists — not the personal one.
       ],
       // Audience breakdown. Set to [] to hide this block.
       audience: [
