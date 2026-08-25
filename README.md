@@ -1,6 +1,6 @@
 # denesgarda.com
 
-A single-page media kit for custom UGC work. Static HTML/CSS/JS — no build step, no dependencies.
+A single page for showing UGC sample videos. Static HTML/CSS/JS — no build step, no dependencies.
 
 ```
 index.html        page shell, meta tags, link-preview info
@@ -21,16 +21,16 @@ Four sections are built. Each has an `enabled` flag:
 
 ```js
 sections: {
-  work:     { enabled: true,  ... },   // on
+  work:     { enabled: true,  ... },   // on — your samples
   stats:    { enabled: false, ... },   // built, hidden
   services: { enabled: false, ... },   // built, hidden
   brands:   { enabled: false, ... },   // built, hidden
 }
 ```
 
-Flip `false` → `true` and the section appears, the nav link appears with it, and the alternating background shading re-flows on its own. Contact always renders.
+Flip `false` → `true` and the section appears, the nav bar appears with it, and the alternating background shading re-flows on its own. Contact always renders.
 
-Current state: **work only**.
+Current state: **samples only**. Stats, rates, and past brands are written out and waiting — turn them on when you have real numbers and real clients to put in them, not before. A rate card with placeholder figures does more harm than no rate card.
 
 To see what a hidden section looks like before committing to it, add `?preview=all` to the URL — <http://localhost:8000/?preview=all>. That force-shows every section for that one page view without changing any file.
 
@@ -41,9 +41,11 @@ To see what a hidden section looks like before committing to it, add `?preview=a
 3. Point the item at both:
 
 ```js
-{ brand: "Aesop", title: "Hook-first product demo", platform: "TikTok",
+{ title: "Product demo", brand: "",
   video: "assets/work/01.mp4", poster: "assets/work/01.jpg", link: "" }
 ```
+
+**`brand` is empty on purpose.** Filling it in puts a company name above the tile, which reads as a paid client credit. Leave it empty for spec and sample work; add it only once a piece really was made for that company.
 
 Tiles preview muted on hover and open with sound on click. If you'd rather link out to the live post, set `link` to the URL and leave `video` empty — the tile becomes a link instead of a player.
 
@@ -59,7 +61,7 @@ An item with no `video` and no `poster` shows a slate with the filename it expec
 
 ```bash
 git add -A
-git commit -m "Build media kit"
+git commit -m "Update site"
 git remote add origin git@github.com:<you>/<repo>.git
 git push -u origin main
 ```
@@ -93,6 +95,8 @@ Then open <http://localhost:8000>. Opening `index.html` directly with `file://` 
 
 Typography is Archivo used across its width axis — expanded 800 for the masthead, condensed for labels and data — with Newsreader for reading copy. The palette is white paper, `#0a0a0a` ink, hairline rules, and `#e5341f` used only on the masthead rule, the CTA, and live states.
 
-Every work tile is a true 9:16 frame, and hovering one reveals a dashed red **safe-zone guide** — the platform UI margins you actually compose within. It's in `.safe__box` in `style.css` if you want to tune the insets.
+Every sample tile is a true 9:16 frame, and hovering one reveals a dashed red **safe-zone guide** — the platform UI margins you actually compose within. It's in `.safe__box` in `style.css` if you want to tune the insets.
 
-The page prints cleanly (`Cmd+P` → Save as PDF) if a brand asks for the kit as a file.
+The page deliberately claims nothing it can't back up: no item counts, no availability status, no turnaround promises. The hero is short so the videos are reachable in one scroll, and the email address is the only call to action. As real work comes in, the pieces to add back are in `content.js` already.
+
+The page prints cleanly (`Cmd+P` → Save as PDF) if someone asks for it as a file.

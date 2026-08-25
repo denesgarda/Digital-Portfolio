@@ -15,24 +15,21 @@ window.SITE = {
   role: "UGC Creator",
   location: "New York, NY", // << REPLACE >>
 
-  // The one line a brand reads first. Say what you make and who it's for.
-  thesis: "Custom short-form video for brands that need content built for the feed, not repurposed for it.", // << REPLACE >>
+  // The one line a brand reads first. Keep it plain.
+  thesis: "I make short-form video for brands.", // << REPLACE >>
 
   email: "hello@denesgarda.com", // << REPLACE >>
 
-  // Shown as a live pill in the top bar. Set enabled:false to hide it.
+  // A status line in the top bar, e.g. "Open to new projects".
+  // Off for now — turn it on when you actually want to signal availability.
   availability: {
-    enabled: true,
-    text: "Booking Q4 2026" // << REPLACE >>
+    enabled: false,
+    text: "Open to new projects"
   },
 
-  // Small facts under the thesis. Add or remove freely.
-  facts: [
-    { label: "Formats", value: "9:16 · 4:5 · 1:1" },
-    { label: "Turnaround", value: "5–7 days" },
-    { label: "Usage", value: "Paid + organic" },
-    { label: "Revisions", value: "2 included" }
-  ],
+  // Optional facts under the thesis. Empty = the block is hidden.
+  // Worth adding once you have real answers (turnaround, usage terms).
+  facts: [],
 
   // Profile links. Shown in the contact block and the footer.
   socials: [
@@ -44,22 +41,23 @@ window.SITE = {
 
   sections: {
 
-    /* ---------- SELECTED WORK — ON ---------- */
+    /* ---------- SAMPLES — ON ---------- */
     work: {
       enabled: true,
-      title: "Selected Work",
+      title: "Samples",
       // Drop .mp4 files and .jpg posters into assets/work/.
       // Leave `video` and `poster` empty and the tile shows a labelled slate.
       // `link` is optional — if set, clicking opens that URL instead of the player.
+      //
+      // `brand` is optional and empty on purpose. Adding one says "this was a
+      // paid job for that company", so only fill it in when that's true.
       items: [
-        { brand: "Brand Name",  title: "Hook-first product demo", platform: "TikTok",    video: "", poster: "", link: "" },
-        { brand: "Brand Name",  title: "Unboxing, 3-scene cut",   platform: "Reels",     video: "", poster: "", link: "" },
-        { brand: "Brand Name",  title: "Testimonial, straight-to-camera", platform: "TikTok", video: "", poster: "", link: "" },
-        { brand: "Brand Name",  title: "Routine / day-in-the-life", platform: "Reels",   video: "", poster: "", link: "" },
-        { brand: "Brand Name",  title: "Problem → solution spot", platform: "Shorts",    video: "", poster: "", link: "" },
-        { brand: "Brand Name",  title: "Founder-style voiceover", platform: "TikTok",    video: "", poster: "", link: "" },
-        { brand: "Brand Name",  title: "Static-to-motion carousel", platform: "Reels",   video: "", poster: "", link: "" },
-        { brand: "Brand Name",  title: "Green-screen explainer",  platform: "TikTok",    video: "", poster: "", link: "" }
+        { title: "Product demo",        brand: "", video: "", poster: "", link: "" },
+        { title: "Unboxing",            brand: "", video: "", poster: "", link: "" },
+        { title: "Straight-to-camera",  brand: "", video: "", poster: "", link: "" },
+        { title: "Problem → solution",  brand: "", video: "", poster: "", link: "" },
+        { title: "Voiceover explainer", brand: "", video: "", poster: "", link: "" },
+        { title: "Green screen",        brand: "", video: "", poster: "", link: "" }
       ]
     },
 
@@ -133,9 +131,9 @@ window.SITE = {
 
     /* ---------- CONTACT — always on ---------- */
     contact: {
-      title: "Work with me",
-      pitch: "Send the brief, the deadline, and where it's running. You'll get a quote back within one business day.",
-      ctaLabel: "Start a project"
+      title: "Get in touch",
+      // Optional. Empty = just the email address and your links.
+      pitch: ""
     }
   }
 };

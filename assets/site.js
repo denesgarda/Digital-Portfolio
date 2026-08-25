@@ -61,13 +61,18 @@
           ? '<a class="tile__btn" href="' + esc(it.link) + '" target="_blank" rel="noopener">'
           : '<button class="tile__btn" type="button" data-play="' + i + '">';
         var close = it.link ? "</a>" : "</button>";
+
+        /* A brand name only appears when there is one — it reads as a client
+           credit, so an empty value must not leave a placeholder behind. */
+        var lead = it.brand
+          ? '<span class="tile__brand">' + esc(it.brand) + '</span>' +
+            '<span class="tile__title">' + esc(it.title) + '</span>'
+          : '<span class="tile__brand">' + esc(it.title) + '</span>';
+
+        /* No format label — every frame is already visibly the same shape. */
         return '<li class="tile">' + open +
                  frame(it, { slateNote: slate }) +
-                 '<span class="tile__cap">' +
-                   '<span><span class="tile__brand">' + esc(it.brand) + '</span>' +
-                   '<span class="tile__title">' + esc(it.title) + '</span></span>' +
-                   '<span class="tile__plat">' + esc(it.platform) + '</span>' +
-                 '</span>' +
+                 '<span class="tile__cap"><span>' + lead + '</span></span>' +
                close + '</li>';
       }).join("");
 
@@ -143,11 +148,13 @@
 
   /* ---------------- build ---------------- */
 
+  /* No item counts anywhere — a tally invites a brand to judge the number
+     rather than the work. */
   var ORDER = [
-    { key: "work",     meta: function (c) { return (c.items || []).length + " pieces"; } },
+    { key: "work",     meta: function ()  { return ""; } },
     { key: "stats",    meta: function ()  { return "Updated " + new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" }); } },
     { key: "services", meta: function ()  { return "USD"; } },
-    { key: "brands",   meta: function (c) { return (c.list || []).length + " partners"; } }
+    { key: "brands",   meta: function ()  { return ""; } }
   ];
 
   var main = $("#sections");
@@ -164,7 +171,8 @@
     if (!c || (c.enabled === false && !previewAll)) return;
 
     navItems.push({ id: def.key, label: c.title });
-    html += '<section class="section' + (washNext ? " section--wash" : "") + '" id="' + def.key + '">' +
+    html += '<section class="section' + (washNext ? " section--wash" : "") +
+              (def.key === "work" ? " section--narrow" : "") + '" id="' + def.key + '">' +
               '<div class="wrap">' +
                 head(c.title, def.meta(c), c.note) +
                 render[def.key](c) +
@@ -176,26 +184,19 @@
   /* Contact always renders last. */
   var ct = S.sections.contact;
   navItems.push({ id: "contact", label: ct.title });
+  /* The email address is the call to action. A separate button pointing at the
+     same mailto: was just saying it twice. */
   html += '<section class="section contact" id="contact"><div class="wrap">' +
             '<div class="section__head">' +
               '<h2 class="section__title">' + esc(ct.title) + '</h2>' +
               '<p class="mono section__meta">' + esc(S.location) + '</p>' +
             '</div>' +
-            '<div class="contact__grid">' +
-              '<div>' +
-                '<a class="contact__mail" href="mailto:' + esc(S.email) + '">' + esc(S.email) + '</a>' +
-                '<div class="contact__socials">' +
-                  (S.socials || []).map(function (s) {
-                    return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + '</a>';
-                  }).join("") +
-                '</div>' +
-              '</div>' +
-              '<div>' +
-                '<p class="contact__pitch">' + esc(ct.pitch) + '</p>' +
-                '<a class="btn btn--lg" href="mailto:' + esc(S.email) +
-                  '?subject=' + encodeURIComponent("Project inquiry — " + S.name) + '">' +
-                  esc(ct.ctaLabel) + '</a>' +
-              '</div>' +
+            (ct.pitch ? '<p class="contact__pitch">' + esc(ct.pitch) + '</p>' : "") +
+            '<a class="contact__mail" href="mailto:' + esc(S.email) + '">' + esc(S.email) + '</a>' +
+            '<div class="contact__socials">' +
+              (S.socials || []).map(function (s) {
+                return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + '</a>';
+              }).join("") +
             '</div>' +
           '</div></section>';
 
@@ -227,25 +228,37 @@
     return '<span class="word"><span>' + esc(w) + "</span></span>";
   }).join("");
 
-  js("facts").innerHTML = (S.facts || []).map(function (f) {
-    return "<div><dt>" + esc(f.label) + "</dt><dd>" + esc(f.value) + "</dd></div>";
-  }).join("");
+  var facts = S.facts || [];
+  if (facts.length) {
+    js("facts").innerHTML = facts.map(function (f) {
+      return "<div><dt>" + esc(f.label) + "</dt><dd>" + esc(f.value) + "</dd></div>";
+    }).join("");
+  } else {
+    js("facts").remove();
+  }
 
   if (S.availability && S.availability.enabled) {
     js("availability-text").textContent = S.availability.text;
     js("availability").hidden = false;
   }
 
-  js("nav").innerHTML = navItems.map(function (n) {
-    return '<li><a href="#' + n.id + '">' + esc(n.label) + "</a></li>";
-  }).join("");
+  /* Contact is left out — the bar already carries a permanent button for it.
+     A nav holding a single link is just clutter, so it only appears at two. */
+  var navLinks = navItems.filter(function (n) { return n.id !== "contact"; });
+  if (navLinks.length > 1) {
+    js("nav").innerHTML = navLinks.map(function (n) {
+      return '<li><a href="#' + n.id + '">' + esc(n.label) + "</a></li>";
+    }).join("");
+  } else {
+    $(".nav").remove();
+  }
 
-  /* "See the work" points at the first live section. */
+  /* The hero's primary link points at the first live section — normally the
+     samples, since that is the whole reason someone opened the page. */
   var first = navItems[0];
-  js("hero-alt").setAttribute("href", "#" + first.id);
-  js("hero-alt").textContent = first.id === "contact" ? "Get in touch" : "See the work";
-  js("hero-cta").textContent = ct.ctaLabel;
-  js("topcta").textContent = "Get in touch";
+  js("hero-cta").setAttribute("href", "#" + first.id);
+  js("hero-cta").textContent = first.id === "contact" ? ct.title : "See " + first.label.toLowerCase();
+  js("topcta").textContent = ct.title;
 
   /* A file that 404s shows the slate with its expected path, not a black box.
      Media errors don't bubble, so listen in the capture phase. */
@@ -323,8 +336,11 @@
 
   /* ---------------- nav current-section ---------------- */
 
+  var navList = js("nav");
+  if (!navList) return; /* nav was dropped; nothing to highlight */
+
   var links = {};
-  js("nav").querySelectorAll("a").forEach(function (a) {
+  navList.querySelectorAll("a").forEach(function (a) {
     links[a.getAttribute("href").slice(1)] = a;
   });
 
