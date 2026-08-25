@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Denes Garda — UGC Creator</title>
+<meta name="description" content="Custom short-form video for brands. Portfolio, rates, and reach.">
+<link rel="canonical" href="https://denesgarda.com/">
+
+<!-- Link preview (what brands see when you paste this in a DM or email) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://denesgarda.com/">
+<meta property="og:title" content="Denes Garda — UGC Creator">
+<meta property="og:description" content="Custom short-form video for brands. Portfolio, rates, and reach.">
+<meta property="og:image" content="https://denesgarda.com/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<a class="skip" href="#work">Skip to the work</a>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar" id="topbar">
+  <div class="wrap topbar__in">
+    <a class="wordmark" href="#top" data-js="wordmark">Denes Garda</a>
+    <nav class="nav" aria-label="Sections"><ul data-js="nav"></ul></nav>
+    <div class="topbar__right">
+      <span class="pill" data-js="availability" hidden><i></i><span data-js="availability-text"></span></span>
+      <a class="btn btn--sm" href="#contact" data-js="topcta">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MASTHEAD ============ -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero__grid">
+
+      <div class="hero__type">
+        <p class="eyebrow hero__eyebrow" data-js="hero-eyebrow"></p>
+        <h1 class="masthead" data-js="masthead"><span class="masthead__l"></span></h1>
+      </div>
+
+      <!-- The format itself, stated once, at full size. -->
+      <figure class="hero__frame" aria-hidden="true">
+        <div class="frame frame--hero">
+          <div class="slate">
+            <span class="slate__ratio">9:16</span>
+            <span class="slate__note">assets/work/01.mp4</span>
+          </div>
+          <div class="safe"><span class="safe__box"><b class="safe__tag">Safe zone</b></span></div>
+        </div>
+      </figure>
+
+    </div>
+
+    <hr class="rule rule--flag">
+
+    <div class="hero__foot">
+      <p class="thesis" data-js="thesis"></p>
+      <dl class="facts" data-js="facts"></dl>
+    </div>
+
+    <div class="hero__cta">
+      <a class="btn btn--lg" href="#contact" data-js="hero-cta">Work with me</a>
+      <a class="link link--quiet" href="#work" data-js="hero-alt">See the work</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTIONS (rendered from content.js) ============ -->
+<main id="sections"></main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__in">
+    <span class="mono" data-js="footer-name"></span>
+    <span class="mono" data-js="year"></span>
+  </div>
+</footer>
+
+<!-- ============ PLAYER ============ -->
+<div class="lightbox" data-js="lightbox" role="dialog" aria-modal="true" aria-label="Video player" hidden>
+  <button class="lightbox__close" data-js="lightbox-close" aria-label="Close player">Close</button>
+  <div class="lightbox__stage">
+    <div class="frame frame--play" data-js="lightbox-stage"></div>
+    <p class="lightbox__caption" data-js="lightbox-caption"></p>
+  </div>
+</div>
+
+<script src="content.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>
