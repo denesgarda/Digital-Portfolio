@@ -340,7 +340,7 @@ a{ color:inherit; }
   color:var(--flag); background:rgba(10,10,10,.75);
   padding:2px 5px; white-space:nowrap;
 }
-.frame--hero .safe{ opacity:1; }
+.frame--hero:hover .safe{ opacity:1; }
 
 /* ---------- work grid ---------- */
 

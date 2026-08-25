@@ -23,8 +23,10 @@
   }
 
   /* A 9:16 frame: real media if a file is given, labelled slate if not.
-     A missing file falls back to the slate rather than a black rectangle. */
+     A missing file falls back to the slate rather than a black rectangle.
+     opts: { slateNote, cls, badge } */
   function frame(item, opts) {
+    opts = opts || {};
     var inner;
     if (item.video) {
       inner = '<video muted loop playsinline preload="metadata" data-slate="' + esc(opts.slateNote) + '"' +
@@ -35,11 +37,28 @@
     } else {
       inner = slate(opts.slateNote);
     }
-    return '<div class="frame">' + inner +
-           (item.video || item.link ? '<span class="tile__play" aria-hidden="true">▶</span>' : "") +
+    var badge = opts.badge !== false && (item.video || item.link);
+    return '<div class="frame' + (opts.cls ? " " + opts.cls : "") + '">' + inner +
+           (badge ? '<span class="tile__play" aria-hidden="true">▶</span>' : "") +
            '<div class="safe" aria-hidden="true"><span class="safe__box">' +
            '<b class="safe__tag">Safe zone</b></span></div></div>';
   }
+
+  /* A file that 404s shows the slate with its expected path, not a black box.
+     Media errors don't bubble, so listen in the capture phase. Registered
+     before anything renders so no early failure is missed. */
+  document.addEventListener("error", function (e) {
+    var el = e.target;
+    if (!el.dataset || !("slate" in el.dataset)) return;
+    var f = el.closest(".frame");
+    if (!f) return;
+    el.remove();
+    var badge = f.querySelector(".tile__play");
+    if (badge) badge.remove();
+    var btn = f.closest("[data-play]");
+    if (btn) { btn.disabled = true; btn.style.cursor = "default"; }
+    f.insertAdjacentHTML("afterbegin", slate(el.dataset.slate));
+  }, true);
 
   function head(title, meta, note) {
     return '<div class="section__head">' +
@@ -228,6 +247,21 @@
     return '<span class="word"><span>' + esc(w) + "</span></span>";
   }).join("");
 
+  /* The hero frame shows your first sample, so it turns into real work the
+     moment a file lands in assets/work/ — no second place to update. */
+  var heroFig = js("hero-frame");
+  var wk = S.sections.work;
+  var firstSample = (wk && wk.enabled !== false && (wk.items || [])[0]) || null;
+  if (firstSample) {
+    heroFig.innerHTML = frame(firstSample, {
+      slateNote: firstSample.video || "assets/work/01.mp4",
+      cls: "frame--hero",
+      badge: false
+    });
+  } else {
+    heroFig.remove();
+  }
+
   var facts = S.facts || [];
   if (facts.length) {
     js("facts").innerHTML = facts.map(function (f) {
@@ -262,19 +296,6 @@
 
   /* A file that 404s shows the slate with its expected path, not a black box.
      Media errors don't bubble, so listen in the capture phase. */
-  main.addEventListener("error", function (e) {
-    var el = e.target;
-    if (!el.dataset || !("slate" in el.dataset)) return;
-    var f = el.closest(".frame");
-    if (!f) return;
-    el.remove();
-    var badge = f.querySelector(".tile__play");
-    if (badge) badge.remove();
-    var btn = f.closest("[data-play]");
-    if (btn) { btn.disabled = true; btn.style.cursor = "default"; }
-    f.insertAdjacentHTML("afterbegin", slate(el.dataset.slate));
-  }, true);
-
   /* ---------------- hover preview ---------------- */
 
   var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

@@ -13,7 +13,7 @@ window.SITE = {
   /* ---------- IDENTITY ---------- */
   name: "Denes Garda",
   role: "UGC Creator",
-  location: "New York, NY", // << REPLACE >>
+  location: "Irvine, CA",
 
   // The one line a brand reads first. Keep it plain.
   thesis: "I make short-form video for brands.", // << REPLACE >>
@@ -31,11 +31,10 @@ window.SITE = {
   // Worth adding once you have real answers (turnaround, usage terms).
   facts: [],
 
-  // Profile links. Shown in the contact block and the footer.
+  // Profile links, shown in the contact block.
   socials: [
-    { label: "TikTok",    url: "https://tiktok.com/@yourhandle" },     // << REPLACE >>
-    { label: "Instagram", url: "https://instagram.com/yourhandle" },   // << REPLACE >>
-    { label: "YouTube",   url: "https://youtube.com/@yourhandle" }     // << REPLACE >>
+    { label: "TikTok",    url: "https://tiktok.com/@denes0114" },
+    { label: "Instagram", url: "https://instagram.com/denesgarda" }
   ],
 
 
@@ -67,9 +66,8 @@ window.SITE = {
       title: "Platforms & Reach",
       note: "Rolling 90-day averages.",
       platforms: [
-        { platform: "TikTok",    handle: "@yourhandle", url: "https://tiktok.com/@yourhandle",    followers: "00.0K", avgViews: "00.0K", engagement: "0.0%" },
-        { platform: "Instagram", handle: "@yourhandle", url: "https://instagram.com/yourhandle",  followers: "00.0K", avgViews: "00.0K", engagement: "0.0%" },
-        { platform: "YouTube",   handle: "@yourhandle", url: "https://youtube.com/@yourhandle",   followers: "00.0K", avgViews: "00.0K", engagement: "0.0%" }
+        { platform: "TikTok",    handle: "@denes0114",  url: "https://tiktok.com/@denes0114",    followers: "00.0K", avgViews: "00.0K", engagement: "0.0%" },
+        { platform: "Instagram", handle: "@denesgarda", url: "https://instagram.com/denesgarda", followers: "00.0K", avgViews: "00.0K", engagement: "0.0%" }
       ],
       // Audience breakdown. Set to [] to hide this block.
       audience: [
