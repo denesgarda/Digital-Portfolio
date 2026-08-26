@@ -17,6 +17,15 @@
       .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   }
 
+  /* Appends ?v=N so replacing a file without renaming it actually reaches
+     people who have already visited. Returns the path untouched when empty. */
+  function ver(path) {
+    if (!path) return path;
+    var v = S.assetVersion;
+    if (v == null) return path;
+    return path + (path.indexOf("?") === -1 ? "?v=" : "&v=") + encodeURIComponent(v);
+  }
+
   function slate(note) {
     return '<div class="slate"><span class="slate__ratio">9:16</span>' +
            '<span class="slate__note">' + esc(note) + '</span></div>';
@@ -30,10 +39,10 @@
     var inner;
     if (item.video) {
       inner = '<video muted loop playsinline preload="metadata" data-slate="' + esc(opts.slateNote) + '"' +
-              (item.poster ? ' poster="' + esc(item.poster) + '"' : "") +
-              ' src="' + esc(item.video) + '"></video>';
+              (item.poster ? ' poster="' + esc(ver(item.poster)) + '"' : "") +
+              ' src="' + esc(ver(item.video)) + '"></video>';
     } else if (item.poster) {
-      inner = '<img src="' + esc(item.poster) + '" alt="" loading="lazy" data-slate="' + esc(opts.slateNote) + '">';
+      inner = '<img src="' + esc(ver(item.poster)) + '" alt="" loading="lazy" data-slate="' + esc(opts.slateNote) + '">';
     } else {
       inner = slate(opts.slateNote);
     }
@@ -327,8 +336,8 @@
     if (!item.video) return;
     lastFocus = document.activeElement;
     stage.innerHTML = '<video controls autoplay playsinline' +
-      (item.poster ? ' poster="' + esc(item.poster) + '"' : "") +
-      '><source src="' + esc(item.video) + '" type="video/mp4"></video>';
+      (item.poster ? ' poster="' + esc(ver(item.poster)) + '"' : "") +
+      '><source src="' + esc(ver(item.video)) + '" type="video/mp4"></video>';
     caption.textContent = [item.brand, item.title, item.platform].filter(Boolean).join(" · ");
     box.hidden = false;
     document.body.classList.add("is-locked");

@@ -20,6 +20,11 @@ window.SITE = {
 
   email: "hello@denesgarda.com", // << REPLACE >>
 
+  // Bump this by 1 whenever you REPLACE a file in assets/work/ without
+  // renaming it. Browsers cache by URL, so reusing a filename means repeat
+  // visitors keep seeing the old cut until this number changes.
+  assetVersion: 2,
+
   // A status line in the top bar, e.g. "Open to new projects".
   // Off for now — turn it on when you actually want to signal availability.
   availability: {
