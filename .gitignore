@@ -1,2 +1,6 @@
 .DS_Store
 Thumbs.db
+
+# Never publish contracts or paperwork — this repo is a public website.
+*.pdf
+contracts_*
