@@ -55,7 +55,7 @@ window.SITE = {
         { title: "Product demo",        brand: "", video: "", poster: "", link: "" },
         { title: "Unboxing",            brand: "", video: "", poster: "", link: "" },
         { title: "Straight-to-camera",  brand: "", video: "", poster: "", link: "" },
-        { title: "Problem → solution",  brand: "", video: "", poster: "", link: "" },
+        { title: "The bottle that doesn't smell", brand: "", video: "assets/work/04.mp4", poster: "assets/work/04.jpg", link: "" },
         { title: "Voiceover explainer", brand: "", video: "", poster: "", link: "" },
         { title: "Green screen",        brand: "", video: "", poster: "", link: "" }
       ]
