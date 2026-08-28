@@ -57,12 +57,8 @@ window.SITE = {
       // `brand` is optional and empty on purpose. Adding one says "this was a
       // paid job for that company", so only fill it in when that's true.
       items: [
-        { title: "Product demo",        brand: "", video: "", poster: "", link: "" },
-        { title: "Unboxing",            brand: "", video: "", poster: "", link: "" },
-        { title: "Straight-to-camera",  brand: "", video: "", poster: "", link: "" },
-        { title: "The bottle that doesn't smell", brand: "", video: "assets/work/04.mp4", poster: "assets/work/04.jpg", link: "" },
-        { title: "Voiceover explainer", brand: "", video: "", poster: "", link: "" },
-        { title: "Green screen",        brand: "", video: "", poster: "", link: "" }
+        { title: "AI Workflow",        brand: "", video: "assets/work/01.mp4", poster: "assets/work/01.jpg", link: "" },
+        { title: "Problem → Solution", brand: "", video: "assets/work/04.mp4", poster: "assets/work/04.jpg", link: "" }
       ]
     },
 

@@ -95,7 +95,7 @@ Then open <http://localhost:8000>. Opening `index.html` directly with `file://` 
 
 Typography is Archivo used across its width axis — expanded 800 for the masthead, condensed for labels and data — with Newsreader for reading copy. The palette is white paper, `#0a0a0a` ink, hairline rules, and `#e5341f` used only on the masthead rule, the CTA, and live states.
 
-Every sample tile is a true 9:16 frame, and hovering one reveals a dashed red **safe-zone guide** — the platform UI margins you actually compose within. It's in `.safe__box` in `style.css` if you want to tune the insets.
+Every sample tile is a true 9:16 frame. Hovering one lifts it slightly and plays a muted preview; clicking opens the video with sound.
 
 The page deliberately claims nothing it can't back up: no item counts, no availability status, no turnaround promises. The hero is short so the videos are reachable in one scroll, and the email address is the only call to action. As real work comes in, the pieces to add back are in `content.js` already.
 

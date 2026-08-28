@@ -49,8 +49,7 @@
     var badge = opts.badge !== false && (item.video || item.link);
     return '<div class="frame' + (opts.cls ? " " + opts.cls : "") + '">' + inner +
            (badge ? '<span class="tile__play" aria-hidden="true">▶</span>' : "") +
-           '<div class="safe" aria-hidden="true"><span class="safe__box">' +
-           '<b class="safe__tag">Safe zone</b></span></div></div>';
+           '</div>';
   }
 
   /* A file that 404s shows the slate with its expected path, not a black box.
