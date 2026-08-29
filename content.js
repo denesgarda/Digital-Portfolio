@@ -58,6 +58,7 @@ window.SITE = {
       // paid job for that company", so only fill it in when that's true.
       items: [
         { title: "AI Workflow",        brand: "", video: "assets/work/01.mp4", poster: "assets/work/01.jpg", link: "" },
+        { title: "Study Habits",       brand: "", video: "assets/work/02.mp4", poster: "assets/work/02.jpg", link: "" },
         { title: "Problem → Solution", brand: "", video: "assets/work/04.mp4", poster: "assets/work/04.jpg", link: "" }
       ]
     },
