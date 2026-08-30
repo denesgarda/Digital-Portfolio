@@ -32,6 +32,20 @@ window.SITE = {
     text: "Open to new projects"
   },
 
+  // The video at the top of the page. It autoplays muted and loops — browsers
+  // block autoplay with sound, so a speaker button lets people turn it on.
+  //
+  // Keep it SHORT (15-25s). It downloads on page load, so a 60-second cut
+  // makes the first impression slow, especially on phones. Compress harder
+  // than a grid video:  swift tools/compress.swift in.mp4 intro.mp4 2
+  //
+  // Leave `video` empty and the top of the page falls back to your first
+  // sample's poster, which is what it does today.
+  intro: {
+    video: "",   // e.g. "assets/work/intro.mp4"
+    poster: ""   // e.g. "assets/work/intro.jpg" — shows instantly while it loads
+  },
+
   // Optional facts under the thesis. Empty = the block is hidden.
   // Worth adding once you have real answers (turnaround, usage terms).
   facts: [],

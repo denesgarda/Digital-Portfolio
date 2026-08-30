@@ -255,12 +255,55 @@
     return '<span class="word"><span>' + esc(w) + "</span></span>";
   }).join("");
 
-  /* The hero frame shows your first sample, so it turns into real work the
-     moment a file lands in assets/work/ — no second place to update. */
+  /* Top of the page: an intro video if one is set, otherwise the first sample,
+     so there is never a second place to keep in sync. */
   var heroFig = js("hero-frame");
   var wk = S.sections.work;
   var firstSample = (wk && wk.enabled !== false && (wk.items || [])[0]) || null;
-  if (firstSample) {
+  var intro = S.intro || {};
+  var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (intro.video) {
+    /* Autoplay is only permitted while muted, so the video starts silent and
+       the button hands sound back to the viewer. */
+    heroFig.classList.add("hero__frame--intro");
+    heroFig.removeAttribute("aria-hidden");   // it now holds a real control
+    heroFig.innerHTML =
+      '<div class="frame frame--hero frame--intro">' +
+        '<video data-js="intro-video" loop playsinline muted' +
+          (calm ? ' controls preload="metadata"' : ' autoplay preload="auto"') +
+          (intro.poster ? ' poster="' + esc(ver(intro.poster)) + '"' : "") +
+          ' src="' + esc(ver(intro.video)) + '"></video>' +
+        (calm ? "" :
+          '<button class="sound" data-js="sound" type="button" aria-pressed="false">' +
+            '<span data-js="sound-icon" aria-hidden="true">🔇</span>' +
+            '<span class="sound__label">Sound</span>' +
+          '</button>') +
+      '</div>';
+
+    var iv = js("intro-video");
+    if (!calm && iv) {
+      var kick = iv.play();
+      if (kick) kick.catch(function () {});   // blocked autoplay is not an error
+    }
+
+    var soundBtn = js("sound");
+    if (soundBtn && iv) {
+      soundBtn.addEventListener("click", function () {
+        iv.muted = !iv.muted;
+        /* Unmuting withdraws the autoplay permission, so the browser pauses
+           the video a beat later. Re-play unconditionally rather than testing
+           .paused, which is still false at this point. */
+        if (!iv.muted) {
+          var p = iv.play();
+          if (p) p.catch(function () {});
+        }
+        soundBtn.setAttribute("aria-pressed", String(!iv.muted));
+        soundBtn.classList.toggle("is-on", !iv.muted);
+        js("sound-icon").textContent = iv.muted ? "🔇" : "🔊";
+      });
+    }
+  } else if (firstSample) {
     heroFig.innerHTML = frame(firstSample, {
       slateNote: firstSample.video || "assets/work/01.mp4",
       cls: "frame--hero",
@@ -305,8 +348,6 @@
   /* A file that 404s shows the slate with its expected path, not a black box.
      Media errors don't bubble, so listen in the capture phase. */
   /* ---------------- hover preview ---------------- */
-
-  var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (!calm) {
     main.addEventListener("mouseover", function (e) {

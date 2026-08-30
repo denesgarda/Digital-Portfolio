@@ -212,6 +212,23 @@ a{ color:inherit; }
 @keyframes rise{ to{ transform:translateY(0); } }
 
 .hero__frame{ width:clamp(140px, 15vw, 186px); }
+/* An intro carries the introduction, so it earns a little more room. */
+.hero__frame--intro{ width:clamp(160px, 17vw, 210px); }
+
+/* sound toggle on the intro */
+.sound{
+  position:absolute; right:8px; bottom:8px; z-index:2;
+  display:inline-flex; align-items:center; gap:.4em;
+  background:rgba(10,10,10,.72); color:#fff;
+  border:1px solid rgba(255,255,255,.28);
+  padding:.4em .6em; cursor:pointer;
+  font-family:var(--disp); font-stretch:72%; font-weight:700;
+  font-size:.58rem; letter-spacing:.12em; text-transform:uppercase;
+  transition:background .18s ease, border-color .18s ease;
+}
+.sound:hover{ background:var(--flag); border-color:var(--flag); }
+.sound.is-on{ background:var(--flag); border-color:var(--flag); }
+.sound__label{ line-height:1; }
 
 .hero__foot{
   display:grid;
@@ -589,7 +606,14 @@ body.is-locked{ overflow:hidden; }
 @media (max-width:860px){
   .nav{ display:none; }
   .hero__grid{ grid-template-columns:1fr; align-items:start; }
+  /* A decorative sample poster is dropped on small screens, but an intro is
+     the introduction — most visitors are on a phone, so it has to stay. */
   .hero__frame{ display:none; }
+  .hero__frame--intro{
+    display:block;
+    width:min(56vw, 220px);
+    margin-top:clamp(18px,4vw,28px);
+  }
   .hero__foot{ grid-template-columns:1fr; gap:28px; }
   .thesis{ max-width:none; }
 }
