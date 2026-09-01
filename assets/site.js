@@ -255,11 +255,8 @@
     return '<span class="word"><span>' + esc(w) + "</span></span>";
   }).join("");
 
-  /* Top of the page: an intro video if one is set, otherwise the first sample,
-     so there is never a second place to keep in sync. */
+  /* Top of the page: an intro video if content.js sets one, nothing otherwise. */
   var heroFig = js("hero-frame");
-  var wk = S.sections.work;
-  var firstSample = (wk && wk.enabled !== false && (wk.items || [])[0]) || null;
   var intro = S.intro || {};
   var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -303,13 +300,9 @@
         js("sound-icon").textContent = iv.muted ? "🔇" : "🔊";
       });
     }
-  } else if (firstSample) {
-    heroFig.innerHTML = frame(firstSample, {
-      slateNote: firstSample.video || "assets/work/01.mp4",
-      cls: "frame--hero",
-      badge: false
-    });
   } else {
+    /* No intro set: the masthead stands on its own. A still frame beside the
+       name was decoration, not information. */
     heroFig.remove();
   }
 

@@ -39,8 +39,8 @@ window.SITE = {
   // makes the first impression slow, especially on phones. Compress harder
   // than a grid video:  swift tools/compress.swift in.mp4 intro.mp4 2
   //
-  // Leave `video` empty and the top of the page falls back to your first
-  // sample's poster, which is what it does today.
+  // Leave `video` empty and nothing appears beside the masthead, which is
+  // how it stands today.
   intro: {
     video: "",   // e.g. "assets/work/intro.mp4"
     poster: ""   // e.g. "assets/work/intro.jpg" — shows instantly while it loads
