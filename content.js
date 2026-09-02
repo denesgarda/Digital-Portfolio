@@ -50,12 +50,9 @@ window.SITE = {
   // Worth adding once you have real answers (turnaround, usage terms).
   facts: [],
 
-  // Profile links, shown in the contact block.
-  socials: [
-    { label: "TikTok", url: "https://tiktok.com/@denes0114" }
-    // Instagram removed — @denesgarda is a personal account and this page is
-    // public. Add a separate creator account here when there is one.
-  ],
+  // Profile links, shown under the email in the contact block.
+  // Empty for now — add accounts here once they have work worth showing.
+  socials: [],
 
 
   sections: {
@@ -71,9 +68,9 @@ window.SITE = {
       // `brand` is optional and empty on purpose. Adding one says "this was a
       // paid job for that company", so only fill it in when that's true.
       items: [
-        { title: "AI Workflow",        brand: "", video: "assets/work/01.mp4", poster: "assets/work/01.jpg", link: "" },
-        { title: "Study Habits",       brand: "", video: "assets/work/02.mp4", poster: "assets/work/02.jpg", link: "" },
         { title: "Good, Better, Best", brand: "", video: "assets/work/03.mp4", poster: "assets/work/03.jpg", link: "" },
+        { title: "Study Habits",       brand: "", video: "assets/work/02.mp4", poster: "assets/work/02.jpg", link: "" },
+        { title: "AI Workflow",        brand: "", video: "assets/work/01.mp4", poster: "assets/work/01.jpg", link: "" },
         { title: "Problem → Solution", brand: "", video: "assets/work/04.mp4", poster: "assets/work/04.jpg", link: "" }
       ]
     },

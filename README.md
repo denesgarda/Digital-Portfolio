@@ -51,7 +51,40 @@ Tiles preview muted on hover and open with sound on click. If you'd rather link 
 
 An item with no `video` and no `poster` shows a slate with the filename it expects, so you can see exactly what's still missing.
 
-**Keep files small.** Export at 1080×1920, H.264, ~2–4 Mbps. Anything over ~10 MB per clip makes the page slow, and GitHub Pages has a 1 GB repo soft limit. If your reel is long, host on a CDN and use `link` instead.
+**Keep files small.** Export at 1080×1920, H.264, ~2–4 Mbps. Phone and CapCut exports are often 15 Mbps, which is invisible on a phone screen and just makes the page slow. GitHub also rejects any single file over 100 MB. Run everything through the compressor first:
+
+```bash
+swift tools/compress.swift ~/Desktop/raw.mp4 assets/work/05.mp4 3
+```
+
+Last argument is Mbps. A 60-second clip lands around 20 MB at 3.
+
+### Picking your own thumbnail
+
+The poster is the still shown on the tile before anyone presses play. To choose the exact frame:
+
+```bash
+# 1. dump 30 frames to look through
+swift tools/frames.swift assets/work/03.mp4 ~/Desktop/pick 30
+
+# 2. open ~/Desktop/pick in Finder, icon view, find the one you like.
+#    Every file is named with its timestamp: frame_07_12.40s.jpg
+
+# 3. grab that exact second as the poster
+swift tools/poster.swift assets/work/03.mp4 12.40
+```
+
+Step 3 writes `assets/work/03.jpg` automatically — same path, `.jpg` extension — which is what `content.js` points at. Pass a third argument if you want it somewhere else.
+
+To sample one region more closely, `frames.swift` takes a start and end:
+
+```bash
+swift tools/frames.swift assets/work/03.mp4 ~/Desktop/pick 20 10 14
+```
+
+That's 20 frames between 10s and 14s.
+
+**If you replace a poster or video without renaming it**, bump `assetVersion` in `content.js` so returning visitors don't keep seeing the cached old one.
 
 ### Link previews
 

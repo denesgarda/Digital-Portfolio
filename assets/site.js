@@ -220,11 +220,15 @@
             '</div>' +
             (ct.pitch ? '<p class="contact__pitch">' + esc(ct.pitch) + '</p>' : "") +
             '<a class="contact__mail" href="mailto:' + esc(S.email) + '">' + esc(S.email) + '</a>' +
-            '<div class="contact__socials">' +
-              (S.socials || []).map(function (s) {
-                return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + '</a>';
-              }).join("") +
-            '</div>' +
+            /* Skipped entirely when there are no links, so the block doesn't
+               carry an empty div and its margin. */
+            ((S.socials || []).length
+              ? '<div class="contact__socials">' +
+                  S.socials.map(function (s) {
+                    return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + '</a>';
+                  }).join("") +
+                '</div>'
+              : "") +
           '</div></section>';
 
   main.innerHTML = html;
